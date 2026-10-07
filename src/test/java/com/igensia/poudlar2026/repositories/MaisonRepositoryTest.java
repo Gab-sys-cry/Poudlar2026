@@ -1,5 +1,6 @@
-package com.igensia.poudlar2026;
+package com.igensia.poudlar2026.repositories;
 
+import com.igensia.poudlar2026.MaisonRepository;
 import com.igensia.poudlar2026.entities.MaisonEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

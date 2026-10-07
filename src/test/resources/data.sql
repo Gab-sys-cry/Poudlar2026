@@ -1,3 +1,4 @@
+-- Données d'exemple pour la base de données lors de tests uniquement
 INSERT INTO Maison (nom, points)
 VALUES ('Gryffondor', 0);
 
