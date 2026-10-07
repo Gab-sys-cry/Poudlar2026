@@ -3,6 +3,8 @@ package com.igensia.poudlar2026.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Sorciers")
@@ -21,6 +23,9 @@ public class SorcierEntity {
 
     @Column(name = "date_naissance", nullable = false)
     private LocalDate dateNaissance;
+
+    @OneToMany(mappedBy = "sorcier")
+    private List<SortilegeEntity> sortileges = new ArrayList<>();
 
     public SorcierEntity() {
     }
@@ -55,5 +60,9 @@ public class SorcierEntity {
 
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
+    }
+
+    public List<SortilegeEntity> getSortileges() {
+        return sortileges;
     }
 }

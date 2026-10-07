@@ -1,7 +1,9 @@
 package com.igensia.poudlar2026.service;
 
 import com.igensia.poudlar2026.SorcierRepository;
+import com.igensia.poudlar2026.SortilegeRepository;
 import com.igensia.poudlar2026.entities.SorcierEntity;
+import com.igensia.poudlar2026.entities.SortilegeEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +23,9 @@ class SorcierServicesTest {
 
     @Mock
     private SorcierRepository sorcierRepository;
+
+    @Mock
+    private SortilegeRepository sortilegeRepository;
 
     @InjectMocks
     private SorcierService sorcierService;
@@ -46,6 +51,23 @@ class SorcierServicesTest {
         when(sorcierRepository.findById(42)).thenReturn(Optional.empty());
 
         assertTrue(sorcierService.findById(42).isEmpty());
+    }
+
+    @Test
+    void shouldReturnSortilegesForExistingSorcier() {
+        List<SortilegeEntity> sortileges = List.of(new SortilegeEntity());
+        when(sorcierRepository.existsById(1)).thenReturn(true);
+        when(sortilegeRepository.findBySorcier_Id(1)).thenReturn(sortileges);
+
+        assertSame(sortileges, sorcierService.findSortilegesBySorcierId(1).orElseThrow());
+    }
+
+    @Test
+    void shouldNotQuerySortilegesForUnknownSorcier() {
+        when(sorcierRepository.existsById(42)).thenReturn(false);
+
+        assertTrue(sorcierService.findSortilegesBySorcierId(42).isEmpty());
+        verify(sortilegeRepository, org.mockito.Mockito.never()).findBySorcier_Id(42);
     }
 
     @Test
